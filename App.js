@@ -1,20 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar as ExpoStatusBar } from "expo-status-bar";
+import { useFonts } from 'expo-font';
+import { AuthContextProvider } from './src/context/AuthContext';
+import { AppContextProvider } from './src/context/AppContext';
+import { Navigation } from "./src/navigators/Navigation";
 
-export default function App() {
+const App = () => {
+
+  const [loaded] = useFonts({
+    Shamel: require('./assets/fonts/shamel.ttf'),
+    Taleeq: require('./assets/fonts/taleeq.ttf')
+  });
+
+  if (!loaded) { 
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <AuthContextProvider>
+      <AppContextProvider>
+      <Navigation  /> 
+      <ExpoStatusBar style="auto" />
+      </AppContextProvider>
+    </AuthContextProvider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
