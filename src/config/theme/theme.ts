@@ -13,7 +13,7 @@ interface Spacing {
     space_32: number;
     space_36: number;
   }
-  
+
   export const SPACING: Spacing = {
     space_2: 2,
     space_4: 4,
@@ -29,47 +29,39 @@ interface Spacing {
     space_32: 32,
     space_36: 36,
   };
-  
+
   interface Color {
-    Black: string;
-    BlackRGB10: string;
-    Orange: string;
-    OrangeRGBA0: string;
-    Grey: string;
-    DarkGrey: string;
-    White: string;
-    BlackTheme: string;
-    NavTheme: string;
-    PrimaryColor: string;
-    SecondaryColor: string;
+    PrimaryColor: string,
+    SecondaryColor: string,
+    WhiteColor: string,
+    SemiWhiteColor: string,
+    PurpleColor: string,
+    BlackColor: string,
+    BlueColor: string,
   }
-  
+
   export const COLORS: Color = {
-    Black: '#1a1a21',
-    BlackRGB10: 'rgba(0,0,0,0.1)',
-    Orange: '#FF5524',
-    OrangeRGBA0: 'rgba(255,85,36,0)',
-    Grey: '#333333',
-    DarkGrey: '#1a1a21',
-    White: '#FFFFFF',
-    BlackTheme: '#08121e',
-    NavTheme: '#262630',
-    PrimaryColor: '#fb2f6c',
-    SecondaryColor: '#08121e',
-  
+    PrimaryColor: '#28313A',
+    SecondaryColor: '#F37038',
+    SemiWhiteColor: '#DADADA',
+    WhiteColor: '#fff',
+    PurpleColor: '#711846',
+    BlackColor: '#000',
+    BlueColor: '#4074D8',
+
   };
-  
+
   interface FontFamily {
     primary: string;
     secondary: string;
   }
-  
+
   export const FONTFAMILY: FontFamily = {
     primary: 'Shamel',
     secondary: 'Taleeq'
 
   };
-  
+
   interface FontSize {
     size_8: number;
     size_10: number;
@@ -81,7 +73,7 @@ interface Spacing {
     size_24: number;
     size_30: number;
   }
-  
+
   export const FONTSIZE: FontSize = {
     size_8: 8,
     size_10: 10,
@@ -93,7 +85,7 @@ interface Spacing {
     size_24: 24,
     size_30: 30,
   };
-  
+
   interface BorderRadius {
     radius_4: number;
     radius_8: number;
@@ -102,7 +94,7 @@ interface Spacing {
     radius_20: number;
     radius_25: number;
   }
-  
+
   export const BORDERRADIUS: BorderRadius = {
     radius_4: 4,
     radius_8: 8,
@@ -111,4 +103,3 @@ interface Spacing {
     radius_20: 20,
     radius_25: 25,
   };
-  

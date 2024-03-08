@@ -12,40 +12,37 @@ import { COLORS, FONTFAMILY } from '../../config/theme/theme';
 const SplashScreenOne = ( {navigation}) => {
 
   return (
-    <View style={[styles.container, {justifyContent: 'center', alignItems: 'center'}]}>
+    <View style={[styles.container, {justifyContent: 'center', alignItems: 'center'}]} className="mx-4" >
        <StatusBar barStyle={'light-content'} />
       <View style={styles.textContainer}>
-        <Image source={require('../../assets/icons/4.png')} style={styles.logo} />
-        <Text style={styles.title}> Health Reminder app </Text>
+        <Image source={require('../../assets/images/splash-one.png')}   />
+
         <Text style={styles.subtitle}>
-          Remind Your Family
+          العثور على مكان كتابك أصبح أسهل , نوفر حل تقني مكتامل للمكتبات
         </Text>
 
-        <TouchableOpacity
-        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-4 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-          style={styles.button}
-          onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.buttonText}>  Start Now </Text>
+
+
+        <TouchableOpacity className=" w-96 mt-5 flex items-center  rounded-lg" style={styles.bgPrimary} onPress={() => navigation.navigate('SplashScreenTwo') } >
+        <Text className="text-white text-lg py-3" style={styles.font} >التالي</Text>
         </TouchableOpacity>
+
       </View>
-     
+
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.SecondaryColor,
+    backgroundColor: COLORS.WhiteColor,
     flex: 1,
+    paddingHorizontal: 10,
   },
   textContainer: {
     alignItems: 'center',
   },
-  logo: {
-    resizeMode: 'cover',
-    maxHeight: 110,
-    maxWidth: 350,
-  },
+
   title: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -55,10 +52,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   subtitle: {
-    fontFamily: FONTFAMILY.primary_light,
+    fontFamily: FONTFAMILY.primary,
     fontSize: 18,
-    color: 'white',
-    marginTop: 25,
+    color: COLORS.BlackColor,
+    marginTop: 35,
     textAlign: 'center',
   },
   button: {
@@ -75,6 +72,13 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
   },
+  bgPrimary: {
+    backgroundColor: COLORS.PrimaryColor,
+  },
+  font: {
+    fontFamily: FONTFAMILY.primary,
+  }
+
 });
 
 export default SplashScreenOne;

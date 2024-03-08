@@ -1,41 +1,36 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
-  TouchableOpacity,
   Image
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { COLORS, FONTFAMILY } from '../config/theme/theme';
+import { useFocusEffect } from '@react-navigation/native';
 
 const LoadingScreen = ( {navigation}) => {
+
+  useFocusEffect(
+    useCallback(() => {
+     setTimeout(() => {
+      navigation.navigate('SplashScreenOne')
+     } , 2500)
+    }, [])
+  );
 
   return (
     <View style={[styles.container, {justifyContent: 'center', alignItems: 'center'}]}>
        <StatusBar barStyle={'light-content'} />
       <View style={styles.textContainer}>
-        <Image source={require('../assets/icons/4.png')} style={styles.logo} />
-        <Text style={styles.title}> Health Reminder app </Text>
-        <Text style={styles.subtitle}>
-          Remind Your Family
-        </Text>
-
-        <TouchableOpacity
-        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-6 py-4 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
-          style={styles.button}
-          onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.buttonText}>  Start Now </Text>
-        </TouchableOpacity>
+        <Image source={require('../assets/icons/logo.png')} style={styles.logo} />
       </View>
-     
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.SecondaryColor,
+    backgroundColor: COLORS.WhiteColor,
     flex: 1,
   },
   textContainer: {
@@ -43,8 +38,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     resizeMode: 'cover',
-    maxHeight: 110,
-    maxWidth: 350,
+    maxHeight: 300,
+    maxWidth: 250,
   },
   title: {
     fontSize: 32,

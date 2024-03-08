@@ -4,7 +4,7 @@ import { View  } from 'react-native';
 import { COLORS, FONTSIZE } from '../config/theme/theme';
 import Octicons from '@expo/vector-icons/Octicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import HomeMustLogin from '../screens/HomeMustLogin';
+import HomeScreen from '../screens/HomeScreen';
 import UserAccountScreen from '../screens/UserAccountScreen';
 
 const Tab = createBottomTabNavigator();
@@ -15,7 +15,7 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
-      screenOptions={{ 
+      screenOptions={{
         headerShown: false,
         tabBarStyle: {
 
@@ -32,8 +32,8 @@ const TabNavigator = () => {
     >
 
       <Tab.Screen
-        name="HomeMustLogin"
-        component={HomeMustLogin}
+        name="HomeScreen"
+        component={HomeScreen}
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => {
