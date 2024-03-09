@@ -6,6 +6,9 @@ import Octicons from '@expo/vector-icons/Octicons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import HomeScreen from '../screens/HomeScreen';
 import UserAccountScreen from '../screens/UserAccountScreen';
+import CommunityScreen from '../screens/CommunityScreen';
+import { LinearGradient } from 'expo-linear-gradient';
+import {Ionicons , Fontisto , FontAwesome} from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,16 +18,20 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="HomeScreen"
-      screenOptions={{
+      screenOptions={{ 
         headerShown: false,
         tabBarStyle: {
-
-         backgroundColor: '#262630',
-          borderTopWidth: 0,
+          backgroundColor: '#fff',
           height: 70,
+          borderTopLeftRadius: 10,
+          borderTopRightRadius: 10,
+          elevation: 5, // Add elevation for the box shadow effect
+          shadowColor: '#000', // Set shadow color
+          shadowOffset: { width: 0, height: 2 }, // Set shadow offset
+          shadowOpacity: 0.25, // Set shadow opacity
+          shadowRadius: 3.84, // Set shadow radius
         },
         tabBarItemStyle: {
-          paddingHorizontal: 40,
           marginTop: 25,
           borderRadius: 10,
         }
@@ -32,8 +39,8 @@ const TabNavigator = () => {
     >
 
       <Tab.Screen
-        name="HomeScreen"
-        component={HomeScreen}
+        name="Community"
+        component={CommunityScreen}
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({ focused }) => {
@@ -41,11 +48,10 @@ const TabNavigator = () => {
               <View
                 style={[
                   styles.activeTabBackground,
-                  focused ? { backgroundColor: COLORS.PrimaryColor } : {},
                 ]}
               >
-                <Octicons
-                  name="home"
+                <Fontisto
+                  name="world-o"
                   color={COLORS.White}
                   size={FONTSIZE.size_18}
                 />
@@ -53,6 +59,35 @@ const TabNavigator = () => {
             );
           },
         }}
+      />
+
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          title: '',
+          tabBarIcon: ({ color }) => (
+            <LinearGradient
+              colors={['#22BCA0', '#007FB6']}
+              start={[0, 0]}
+              end={[1, 0]}
+              style={{
+                width: 65,
+                height: 65,
+                borderRadius: 500,
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginTop: -25,
+              }}
+            >
+              <View >
+                <FontAwesome name="location-arrow" size={26} color="#fff" style={{ fontWeight: 'bold' }} />
+              </View>
+            </LinearGradient>
+          ),
+          headerTitleStyle: styles.headerTitle,
+          headerTitleContainerStyle: styles.headerTitleContainer,
+            }}
       />
 
 <Tab.Screen

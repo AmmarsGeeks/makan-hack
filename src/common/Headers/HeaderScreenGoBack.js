@@ -4,19 +4,20 @@ import { COLORS , FONTFAMILY } from '../../config/theme/theme';
 
 export const HeaderScreenGoBack = ({ navigation , title   }) => {
     return (
-      <View  style={{ paddingHorizontal: 35 , backgroundColor:COLORS.NavTheme }} >
-   <View className="flex flex-row justify-start pt-16 pb-2" >
+      <View  style={{ paddingHorizontal: 35 , backgroundColor:COLORS.PrimaryColor }} >
+   <View className="flex flex-row justify-end pt-24 pb-2" >
          
+   <View>
+      <Text className="text-xl text-white text-left" style={[styles.font ]} >  {title}  </Text>  
+      </View>
 
    <TouchableOpacity  onPress={() => {
         navigation.goBack();
       }}  >
-       <Feather name="chevron-left" size={24} color={COLORS.White} />
+       <Feather name="chevron-right" size={24} color={COLORS.WhiteColor} />
       </TouchableOpacity>
 
-      <View>
-      <Text className="text-xl text-white text-left" style={[styles.font ]} >  {title}  </Text>  
-      </View>
+    
      
       </View>
 
@@ -28,7 +29,7 @@ export const HeaderScreenGoBack = ({ navigation , title   }) => {
   const styles = StyleSheet.create({
     font: {
       fontWeight: 'bold',
-      fontFamily: FONTFAMILY.primary,
+      fontFamily: FONTFAMILY.secondary,
       textAlign: 'left'
     },
     

@@ -13,7 +13,7 @@ export default function CustomDrawerItemList(props) {
   
     return (
       <View>
-        {state.routes.slice(0, 4).map((route, index) => {
+        {state.routes.slice(0, 3).map((route, index) => {
           const { options } = props.descriptors[route.key];
   
           let IconComponent = null;
@@ -42,7 +42,7 @@ export default function CustomDrawerItemList(props) {
             <View className="mx-2 flex-row items-center my-3 mb-3">
            
               <IconComponent name={options.iconName} size={20} color={COLORS.White} />
-              <Text style={styles.fontTajwal} className="text-white mx-4">
+              <Text style={styles.fontTajwal} className="text-black mx-4">
                 {options.drawerLabel || route.name}
               </Text>
             </View>

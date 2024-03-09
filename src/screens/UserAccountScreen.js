@@ -18,35 +18,35 @@ const UserAccountScreen = ({navigation}) => {
         <TouchableOpacity
         className="mt-3 text-white py-3 bg-gray-800 hover:bg-gray-900 rounded-lg text-sm px-6  mb-2 w-full"
           style={styles.button}
-          onPress={() => navigation.navigate('AccountOptions')}>
-          <Text style={styles.buttonText}> New User ? , Signup </Text>
+          onPress={() => navigation.navigate('LoginScreen')}>
+          <Text style={styles.buttonText}> مستخدم جديد ؟ انشئ حسابك </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
         className="mt-4 text-white py-3 bg-gray-800 hover:bg-gray-900 rounded-lg text-sm px-6  mb-2 w-full"
           style={styles.buttonBorder}
           onPress={() => navigation.navigate('LoginScreen')}>
-          <Text style={styles.buttonText}>  Already with us ? , Login</Text>
+          <Text style={[styles.buttonText , {color: 'black'}]}> لديك حساب بالفعل ؟ سجل الدخول  </Text>
         </TouchableOpacity>
 
 
       </View>
 
-      <View style={styles.profileContainer} className="mt-12" >
+      {/* <View style={styles.profileContainer} className="mt-12" >
         <SettingComponent
           icon="comment-question-outline"
-          heading="Faq"
+          heading="الاسئلة الشائعة"
           navigation={navigation}
           toNav={"FaqScreen"}
         />
          <SettingComponent
           icon="information-outline"
-          heading="Who We Are"
+          heading="من نحن"
           navigation={navigation}
           toNav={"WhoWeAreScreen"}
         />
        
-      </View>
+      </View> */}
       </View>
     
 
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flex: 1,
-    backgroundColor: COLORS.SecondaryColor,
+    backgroundColor: COLORS.WhiteColor,
     paddingHorizontal: 25,
   },
   appHeaderContainer: {
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     borderRadius: BORDERRADIUS.radius_25,
   },
   buttonText: {
-    fontFamily: FONTFAMILY.secondary_bold,
+    fontFamily: FONTFAMILY.secondary,
     fontSize: 15,
     fontWeight: 'bold',
     color: 'white',

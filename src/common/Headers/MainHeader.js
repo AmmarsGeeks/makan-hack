@@ -7,7 +7,7 @@ import Entypo from '@expo/vector-icons/Entypo';
 
 
 export  const MainHeader = ({ navigation }) => {
-    const { isAuthenticated  } = useContext(AuthenticationContext);
+    
   
     return (
       <View  style={{ paddingHorizontal: 15 , backgroundColor: COLORS.BlackTheme }} >
@@ -24,23 +24,10 @@ export  const MainHeader = ({ navigation }) => {
        />
       </TouchableOpacity>
 
-      <Image source={require('../../assets/icons/4.png')} style={styles.logo} />
-          
-          <View>
-          {isAuthenticated ? (
-            <TouchableOpacity  onPress={() => {
-            navigation.navigate('UserAccountAuth');
-            }}  
-            >
-        <AntDesign
-        name="user"
-        color={COLORS.PrimaryColor}
-        size={FONTSIZE.size_24}
-        />
+      <Image source={require('../../assets/icons/logo.png')} style={styles.logo} />
 
-      </TouchableOpacity>
-          ): (
-            <TouchableOpacity  onPress={() => {
+          <View>
+          <TouchableOpacity  onPress={() => {
         navigation.navigate('UserAccountScreen');
         }}  >
         <AntDesign
@@ -50,7 +37,6 @@ export  const MainHeader = ({ navigation }) => {
         />
   
         </TouchableOpacity>
-          )}
           </View>
      
       </View>
@@ -63,7 +49,7 @@ export  const MainHeader = ({ navigation }) => {
   const styles = StyleSheet.create({
     logo: {
         resizeMode: 'cover',
-        maxHeight: 60,
-        maxWidth: 150,
+        maxHeight: 50,
+        maxWidth: 40,
       },
   })

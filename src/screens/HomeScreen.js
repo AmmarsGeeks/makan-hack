@@ -1,248 +1,229 @@
-import  React , {useState , useCallback , useEffect} from 'react';
-import {Text, View, StyleSheet, StatusBar, Image , TouchableOpacity , ScrollView} from 'react-native';
-import {COLORS, FONTFAMILY, FONTSIZE, SPACING , BORDERRADIUS} from '../config/theme/theme';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import Entypo from '@expo/vector-icons/Entypo';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  ActivityIndicator,
+  ScrollView,
+  StatusBar,
+  FlatList,
+  RefreshControl,
+} from 'react-native';
+import React, { useState  , useCallback} from 'react';
+import SearchBar from '../components/SearchBar'
+import { COLORS, SPACING } from '../config/theme/theme'
+import CategoryHeader from '../components/CategoryHeader';
 import { useFocusEffect } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getDoc , doc , db   } from '../config/firebase/firebase';
-import * as Location from 'expo-location';
+import {  query , collection , getDocs , db } from "../config/firebase/firebase";
+import SubMovieCard from '../components/SubMovieCard';
+import { DrawerActions } from '@react-navigation/native';
+import MovieCard from '../components/MovieCard';
+const {width, height} = Dimensions.get('window');
+import { LinearGradient } from 'expo-linear-gradient';
 
 
+const HomeScreen = ({ navigation }) => {
 
-
-const HomeScreen = ({navigation}) => {
+  const [allBookslist, setAllBooks] = useState(null);
   const [isLoading , setIsLoading] = useState();
-  const [accountType , setAccountType] = useState('');
-  const [userId, setUserId] = useState('');
-  const [hasJoinedFamily , setHasJoinedFamily ] = useState(false);
-  const [familyId , setFamilyId ] = useState(false);
+  const [error , setError] = useState();
+
+  const getEventsData = async () => {
+    try {
+      setIsLoading(true);
+      const q = query(collection(db, "books"));
+      const querySnapshot = await getDocs(q);
+      const eventData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      console.log("threst")
+      setAllBooks(eventData);
+      setIsLoading(false);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
 
   useFocusEffect(
     useCallback(() => {
-      const getData = async () => {
-        try {
-          setIsLoading(true);
-          const value = await AsyncStorage.getItem('reminder_user');
-          let jsonPrsed = JSON.parse(value);
-          setUserId(jsonPrsed.id);
-          setAccountType(jsonPrsed.account_type);
-
-          const docRef = doc(db, "users", jsonPrsed.id );
-          const docSnap = await getDoc(docRef);
-            if (docSnap.exists()) {
-              setHasJoinedFamily(docSnap.data().joinedFamily);
-              setFamilyId(docSnap.data().familyId);
-            
-            } else {
-              setIsLoading(false);
-            }
-          setIsLoading(false);
-        } catch (error) {
-        }
-      };
-      getData();
+      getEventsData();
     }, [])
   );
 
-  const [latitude, setLatitude] = useState(null);
-  const [longitude, setLongitude] = useState(null);
+  if (
+    allBookslist == undefined &&
+    allBookslist == null 
+  ) {
+    return (
+      <ScrollView
+        style={styles.container}
+        bounces={false}
+        contentContainerStyle={styles.scrollViewContainer}>
 
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      
-      let { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setErrorMsg('Permission to access location was denied');
-        return;
-      }
-
-      let location = await Location.getCurrentPositionAsync({});
-      setLocation(location);
-    })();
-  }, []);
-
-  let text = 'Waiting..';
-  if (errorMsg) {
-    text = errorMsg;
-  } else if (location) {
-    text = JSON.stringify(location);
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size={'large'} color={COLORS.DarkGreen} />
+        </View>
+      </ScrollView>
+    );
   }
 
-
-
-
-
-
   return (
-    <View style={styles.container}>
+
+    <ScrollView style={styles.container} bounces={false}>
+
     <StatusBar barStyle={'light-content'} />
+    <View style={styles.container} >
+     
+     <View className="mt-2" >
+     <SearchBar navigation={navigation} placeholder={"بحث"} icon={"search"} />
+     </View>
 
-    <ScrollView className="flex flex-col " style={styles.topAreaHeadins} >
+     <View className="mt-2" >
+     <CategoryHeader title={'مكتبتي'} postion={'left'}  />
+     <View style={styles.underline}  />
+     </View>
 
-    <View className="flex flex-col items-center justify-center mt-12" >
+     <View style={styles.dirR} className="mt-2" >
+    <FlatList
+    horizontal
+    data={[...allBookslist]}
+    keyExtractor={(item) => item.id}
+    showsHorizontalScrollIndicator={false}
+    bounces={false}
+    contentContainerStyle={styles.containerGap16}
+    renderItem={({item, index}) => (
+    <SubMovieCard
+      shoudlMarginatedAtEnd={true}
+      cardFunction={() => {
+        navigation.dispatch(
+          DrawerActions.jumpTo('EventDetailScreen', {movieid: item.id}));
+      }}
+      cardWidth={width / 5.5}
+      isFirst={index == 0 ? true : false}
+      title={item.name}
+      imagePath={item.image}
+      style={{margin: 2}} 
+        />
+      )}
+    />
 
-  {hasJoinedFamily && (
-      <View className="flex flex-col items-center justify-center " >
+     </View>
 
-<Text style={styles.font} className="block text-white font-bold mb-1 text-lg "  >
-   Your Current Family Code: 
-      </Text>
-      
+     <View className="mt-1" >
+     <CategoryHeader title={'قد يهمك'} postion={'left'}  />
+     <View style={styles.underline}  />
+     </View>
 
-    <Text style={styles.headline} className="block text-white font-bold mb-2 text-lg "  >
-    {familyId}
-      </Text>
-      
-    <TouchableOpacity
-        className="mt-4 text-white py-3 bg-gray-800 hover:bg-gray-900 rounded-lg text-sm px-6  mb-2 w-full flex-row items-center justify-center"
-          style={styles.buttonBorder}
-          onPress={() => navigation.navigate('AddReminder' , {
-            familyCode: familyId
-          })}>
-        <Ionicons
-                  name="notifications-outline"
-                  color={COLORS.White}
-                  size={FONTSIZE.size_18}
-                />
-          <Text style={styles.buttonText}>  Add Reminder </Text>
-        </TouchableOpacity>
+     <View style={styles.dirR} className="mt-2" >
+    <FlatList
+    horizontal
+    data={[...allBookslist]}
+    keyExtractor={(item) => item.id}
+    showsHorizontalScrollIndicator={false}
+    bounces={false}
+    contentContainerStyle={styles.containerGap16}
+    renderItem={({item, index}) => (
+    <SubMovieCard
+      shoudlMarginatedAtEnd={true}
+      cardFunction={() => {
+        navigation.dispatch(
+          DrawerActions.jumpTo('EventDetailScreen', {movieid: item.id}));
+      }}
+      cardWidth={width / 5.5}
+      isFirst={index == 0 ? true : false}
+      title={item.name}
+      imagePath={item.image}
+      style={{margin: 2}} 
+        />
+      )}
+    />
+     </View>
 
-    <TouchableOpacity
-        className="mt-4 text-white py-3 bg-gray-800 hover:bg-gray-900 rounded-lg text-sm px-6  mb-2 w-full flex-row items-center justify-center"
-          style={styles.buttonBorder}
-          onPress={() => navigation.navigate('AddMedecine' , {
-            familyCode: familyId
-          })}>
-           <AntDesign
-                  name="medicinebox"
-                  color={COLORS.White}
-                  size={FONTSIZE.size_18}
-                />
-          <Text style={styles.buttonText}>  Add Medecine </Text>
-        </TouchableOpacity>
+     <View className="mt-1" >
+     <CategoryHeader title={'الأعلى تفاعل'} postion={'left'}  />
+     <View style={styles.underline}  />
+     </View>
 
-        </View>
-  )}
-  
-
-
-    {!hasJoinedFamily && accountType === 'parent' && (
-    <TouchableOpacity
-    className="mt-4 text-white py-3 bg-gray-800 hover:bg-gray-900 rounded-lg text-sm px-6  mb-2 w-full flex-row items-center justify-center"
-      style={styles.buttonBorder}
-      onPress={() => navigation.navigate('AddFamily' , {
-        uid: userId
-      })}>
-       <MaterialIcons
-              name="family-restroom"
-              color={COLORS.White}
-              size={FONTSIZE.size_18}
-            />
-      <Text style={styles.buttonText}>  Create Family </Text>
-    </TouchableOpacity>
-    ) }
-
-   
-
-    {!hasJoinedFamily && accountType === 'child' && (
-    <TouchableOpacity
-    className="mt-4 text-white py-3 bg-gray-800 hover:bg-gray-900 rounded-lg text-sm px-6  mb-2 w-full flex-row items-center justify-center"
-      style={styles.buttonBorder}
-      onPress={() => navigation.navigate('JoinFamily', {
-        uid: userId
-      })}>
-       <Entypo
-              name="code"
-              color={COLORS.White}
-              size={FONTSIZE.size_18}
-            />
-      <Text style={styles.buttonText}>  Join Family </Text>
-    </TouchableOpacity>
-    ) }
-    <View className="mt-5" >
-
-    <Text style={styles.headline} >{text}</Text>
-
-
+     <View style={styles.dirR} className="mt-2" >
+    <FlatList
+    horizontal
+    data={[...allBookslist]}
+    keyExtractor={(item) => item.id}
+    showsHorizontalScrollIndicator={false}
+    bounces={false}
+    contentContainerStyle={styles.containerGap16}
+    renderItem={({item, index}) => (
+    <SubMovieCard
+      shoudlMarginatedAtEnd={true}
+      cardFunction={() => {
+        navigation.dispatch(
+          DrawerActions.jumpTo('EventDetailScreen', {movieid: item.id}));
+      }}
+      cardWidth={width / 5.5}
+      isFirst={index == 0 ? true : false}
+      title={item.name}
+      imagePath={item.image}
+      style={{margin: 2}} 
+        />
+      )}
+    />
+     </View>
 
     </View>
-   
 
-  
-    </View>
-
-    </ScrollView>
-  </View>
+      </ScrollView>
   )
 }
 
-
-
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({ 
   container: {
-    display: 'flex',
+     backgroundColor: COLORS.WhiteColor,
+     height: '100%',
+     direction: 'rtl',
+     paddingHorizontal: 16,
+     paddingBottom: 20,
+     felx:1,
+  },
+  dirR: {
+    direction: 'ltr'
+  },
+  scrollViewContainer: {
     flex: 1,
-    backgroundColor: COLORS.SecondaryColor,
-    paddingHorizontal: 25,
   },
-  appHeaderContainer: {
+  loadingContainer: {
+    flex: 1,
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
+  InputHeaderContainer: {
     marginHorizontal: SPACING.space_36,
-    marginTop: SPACING.space_20 * 2,
+    marginTop: SPACING.space_36,
   },
-  profileContainer: {
+  containerGap36: {
+    gap: SPACING.space_36,
+    flexGrow: 1,
+    justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingTop: 10,
+    paddingBottom: 50,
   },
-  avatarImage: {
-    height: 35,
-    width: 35
+  containerGap16: {
+    gap: SPACING.space_4,
+    flexGrow: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 4,
+    paddingTop: 4,
+    paddingBottom: 10,
   },
-  avatarText: {
-    fontFamily: FONTFAMILY.secondary,
-    fontSize: FONTSIZE.size_16,
-    marginTop: SPACING.space_16,
-    color: COLORS.White,
+  underline: {
+    width: '100%', 
+    borderBottomWidth: 1, 
+    borderBottomColor: 'black', 
   },
-  logo: {
-    resizeMode: 'cover',
-    maxHeight: 80,
-    maxWidth: 240,
-  },
-  font: {
-    fontWeight: 'bold',
-    fontFamily: FONTFAMILY.secondary,
-    textAlign: 'left'
-  },
-  headline: {
-    fontWeight: 'bold',
-    fontFamily: FONTFAMILY.primary_bold,
-    textAlign: 'left',
-    color: COLORS.PrimaryColor
-  },
-  button: {
-    backgroundColor: COLORS.PrimaryColor,
-    borderRadius: BORDERRADIUS.radius_25,
-  },
-  buttonBorder: {
-    backgroundColor: 'transparent',
-    borderWidth: 2,
-    borderColor: COLORS.PrimaryColor,
-    borderRadius: BORDERRADIUS.radius_25,
-  },
-  buttonText: {
-    fontFamily: FONTFAMILY.secondary_bold,
-    fontSize: 15,
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
-  },
-  
-});
-
+ 
+ });
+ 
 
 export default HomeScreen

@@ -61,31 +61,9 @@ export const AuthContextProvider = ({ children }) => {
   
     signInWithEmailAndPassword(auth, email, password)
     .then(  async (userCredential) => {
-
-      const q = query(collection(db, "users"), where("email", "==", email ) );
-      const querySnapshot = await getDocs(q);
-      const usersDataArray = querySnapshot.docs ? querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })) : '';
-
-      if ( usersDataArray.length !== 0  ) {
-
-        const userObject = {
-          id: usersDataArray[0].id,
-          full_name: usersDataArray[0].full_name,
-          phone_number: usersDataArray[0].phone_number,
-          email: usersDataArray[0].email,
-          account_type: usersDataArray[0].account_type,
-        }
-        await AsyncStorage.setItem('reminder_user', JSON.stringify(userObject));
-        const user = userCredential.user;
-        setUser(user);
-        setIsLoading(false);
-    }
-    else {
-      setError("we could not find the user");
-      setTimeout(() => {
-        setError('');
-      } , 3000);
-    }
+      const user = userCredential.user;
+      setUser(user);
+   
       setIsLoading(false);
     })
     .catch((e) => {

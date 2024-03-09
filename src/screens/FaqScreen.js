@@ -39,7 +39,7 @@ const FaqScreen = ({navigation}) => {
   </TouchableOpacity>
   {showedText === info && (
     <View className="flex items-start mt-5 bg-gray-100 rounded-md px-4 py-4 " style={styles.transformY} >
-    <Text style={[styles.font , styles.lineHeightFont]} className="text-sm text-left text-gray-500" >  {info} </Text>
+    <Text style={[styles.font , styles.lineHeightFont , { color: COLORS.BlackColor }]} className="text-sm text-left text-gray-500" >  {info} </Text>
   </View>
 
   )}

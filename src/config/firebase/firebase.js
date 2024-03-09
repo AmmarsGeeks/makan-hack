@@ -1,4 +1,4 @@
-import { initializeApp , getApps } from "firebase/app";
+import { initializeApp  } from "firebase/app";
 import { collection, doc, setDoc  , getDocs , getFirestore , where , query , deleteDoc  , updateDoc , increment  , getDoc  , orderBy , limit , or } from "firebase/firestore";
 import { signInWithEmailAndPassword , getAuth , signOut , updatePassword  , createUserWithEmailAndPassword , onAuthStateChanged , updateProfile  , fetchSignInMethodsForEmail   } from 'firebase/auth';
 import { getStorage, ref, uploadBytes, getDownloadURL  , refFromURL, deleteObject } from 'firebase/storage';

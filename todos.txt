@@ -1,0 +1,30 @@
+
+
+
+books 
+
+id
+name
+image
+rating
+category 
+
+الفئات 
+
+تطوير الذات
+علم النفس
+العلوم الاجتماعية
+العلوم الدينية
+الاطفال
+التكنلوجيا
+الطب
+الفلسفة
+
+
+libraries
+
+id 
+name
+image 
+description
+event_status

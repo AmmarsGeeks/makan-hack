@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -13,61 +13,84 @@ import { BORDERRADIUS, COLORS, FONTFAMILY } from '../../config/theme/theme';
 
 const SplashScreenTwo = ( {navigation}) => {
 
+  const [activeBtn, setActiveBtn] = useState(null); // State to track active button
+
+  const handleChooseEvent = (btnName) => {
+    setActiveBtn(btnName); // Set the clicked button as active
+  };
+
   return (
-    <View style={[styles.container, {justifyContent: 'center', alignItems: 'center'}]} className="mx-4" >
-       <StatusBar barStyle={'light-content'} />
-      <View style={styles.textContainer}>
-        <Text style={styles.subtitle}>
-       أنا مهتم بالكتب
-        </Text>
-
-
-      <View className="flex items-center justify-center" >
-
-      <TouchableOpacity
-      className="mt-5 text-white py-3  rounded-lg text-sm px-6  mb-2 w-9/12"
-        style={styles.buttonBorder}
-        onPress={() => navigation.navigate('AccountOptions')}>
-        <Text style={styles.buttonText}>   تطوير الذات  </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-      className="mt-5 text-white py-3  rounded-lg text-sm px-6  mb-2 w-9/12"
-        style={styles.buttonBorder}
-        onPress={() => navigation.navigate('AccountOptions')}>
-        <Text style={styles.buttonText}>    علم النفس  </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-      className="mt-5 text-white py-3  rounded-lg text-sm px-6  mb-2 w-9/12"
-        style={styles.buttonBorder}
-        onPress={() => navigation.navigate('AccountOptions')}>
-        <Text style={styles.buttonText}>     العلوم الاجتماعية  </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-      className="mt-5 text-white py-3  rounded-lg text-sm px-6  mb-2 w-9/12"
-        style={styles.buttonBorder}
-        onPress={() => navigation.navigate('AccountOptions')}>
-        <Text style={styles.buttonText}>     العلوم الدينية  </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-      className="mt-5 text-white py-3  rounded-lg text-sm px-6  mb-2 w-9/12"
-        style={styles.buttonBorder}
-        onPress={() => navigation.navigate('AccountOptions')}>
-        <Text style={styles.buttonText}>      تطوير الذات  </Text>
-      </TouchableOpacity>
-
-      </View>
-
-        <TouchableOpacity className="w-96 mt-5 flex items-center  radius-lg" style={styles.bgPrimary} onPress={() => navigation.navigate('HomeScreen') } >
-        <Text className="text-white text-lg py-3" style={styles.font} >التالي</Text>
+    <View style={[styles.container, { justifyContent: 'center', alignItems: 'center' }]} className="mx-4">
+    <StatusBar barStyle={'light-content'} />
+    <View style={styles.textContainer}>
+      <Text style={styles.subtitle}>أنا مهتم بالكتب</Text>
+      <View className="flex items-center justify-center">
+        <TouchableOpacity
+          style={[
+            styles.buttonBorder,
+            activeBtn === 'تطوير الذات' ? styles.activeButton : null
+          ]}
+          className="mt-5 text-white py-3 rounded-lg text-sm px-6 mb-2 w-9/12"
+          onPress={() => handleChooseEvent('تطوير الذات')}>
+          <Text style={[
+            styles.buttonText,
+            activeBtn === 'تطوير الذات' ? styles.activeText : null
+            ]}>تطوير الذات</Text>
         </TouchableOpacity>
 
-      </View>
+        <TouchableOpacity
+          style={[
+            styles.buttonBorder,
+            activeBtn === 'علم النفس' ? styles.activeButton : null
+          ]}
+          className="mt-5 text-white py-3 rounded-lg text-sm px-6 mb-2 w-9/12"
+          onPress={() => handleChooseEvent('علم النفس')}>
+          <Text style={[
+            styles.buttonText,
+            activeBtn === 'علم النفس' ? styles.activeText : null
+            ]}
+            >علم النفس</Text>
+        </TouchableOpacity>
 
+        <TouchableOpacity
+          style={[
+            styles.buttonBorder,
+            activeBtn === 'العلوم الاجتماعية' ? styles.activeButton : null
+          ]}
+          className="mt-5 text-white py-3 rounded-lg text-sm px-6 mb-2 w-9/12"
+          onPress={() => handleChooseEvent('العلوم الاجتماعية')}>
+          <Text style={[
+            styles.buttonText,
+            activeBtn === 'العلوم الاجتماعية' ? styles.activeText : null
+            ]}
+            > العلوم الاجتماعية</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[
+            styles.buttonBorder,
+            activeBtn === 'العلوم الدينية' ? styles.activeButton : null
+          ]}
+          className="mt-5 text-white py-3 rounded-lg text-sm px-6 mb-2 w-9/12"
+          onPress={() => handleChooseEvent('العلوم الدينية')}>
+          <Text style={[
+            styles.buttonText,
+            activeBtn === 'العلوم الدينية' ? styles.activeText : null
+            ]}
+            > العلوم الدينية</Text>
+        </TouchableOpacity>
+
+     
+
+      </View>
+      <TouchableOpacity
+        className="w-96 mt-5 flex items-center radius-lg"
+        style={styles.bgPrimary}
+        onPress={() => navigation.navigate('LoginScreen')}>
+        <Text className="text-white text-lg py-3" style={styles.font}>التالي</Text>
+      </TouchableOpacity>
     </View>
+  </View>
   );
 }
 
@@ -120,6 +143,12 @@ const styles = StyleSheet.create({
     borderRadius: BORDERRADIUS.radius_25,
 
   },
+  activeButton : {
+    backgroundColor: COLORS.PrimaryColor,
+  },
+  activeText : {
+    color: COLORS.WhiteColor
+  }
 
 });
 

@@ -2,7 +2,7 @@
   "expo": {
     "name": "makan",
     "slug": "makan",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -25,6 +25,17 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8b5cb144-aad2-4ef6-9e81-bb6752fea30d"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/8b5cb144-aad2-4ef6-9e81-bb6752fea30d"
     }
   }
 }

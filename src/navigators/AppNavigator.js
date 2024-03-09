@@ -16,6 +16,7 @@ import CreateAccountOptions from '../screens/CreateAccountOptions';
 import SplashScreenOne from '../screens/splash/SplashScreenOne';
 import SplashScreenTwo from '../screens/splash/SplashScreenTwo';
 import SplashScreenThree from '../screens/splash/SplashScreenThree';
+import EventDetailScreen from '../screens/EventDetailScreen';
 
 
 const Drawer = createDrawerNavigator();
@@ -32,7 +33,7 @@ export const AppNavigator = () => {
           activeBackgroundColor: 'transparent',
           inactiveBackgroundColor: 'transparent',
         }}
-        initialRouteName="Loading"
+        initialRouteName="HomeScreen"
         drawerContent={
           (props) => {
             return (
@@ -62,9 +63,9 @@ export const AppNavigator = () => {
     >
 
 <Drawer.Screen
-      name="Home"
+      name="HomeScreen"
       options={{
-        drawerLabel: "Home",
+        drawerLabel: "الرئيسية",
         title: "Home",
         IconCategory: 'Octicons',
         iconName: 'home',
@@ -72,29 +73,19 @@ export const AppNavigator = () => {
       }}
       component={TabNavigator}
     />
-    
 
 
     <Drawer.Screen
       name="Account"
       options={{
-        drawerLabel: "Account",
+        drawerLabel: "الحساب",
         IconCategory: 'AntDesign',
         iconName: 'user',
       }}
       component={UserAccountScreen}
     />
 
-<Drawer.Screen
-      name="AccountOptions"
-      options={{
-        drawerLabel: "Signup",
-        IconCategory: 'Ionicons',
-        iconName: 'create-outline',
-        header: (props) => <HeaderScreenGoBack navigation={navigation} title={"Choose Option"} />
-      }}
-      component={CreateAccountOptions}
-    />
+
 
 
 
@@ -102,19 +93,10 @@ export const AppNavigator = () => {
       name="LoginScreen"
       component={LoginScreen}
       options={{
-        drawerLabel: "Login",
+        drawerLabel: "تسجيل الدخول",
         IconCategory: 'AntDesign',
         iconName: 'login',
-        header: (props) => <HeaderScreenGoBack navigation={navigation} title={"Login"} />
-      }}
-    />
-
-  <Drawer.Screen
-      name="SignupScreen"
-      component={SignupScreen}
-      options={{
-    drawerLabel: '',
-    header: (props) => <HeaderScreenGoBack navigation={navigation} title={"Create Account"} />
+        header: (props) => <HeaderScreenGoBack navigation={navigation} title={"تسجيل الدخول"} />
       }}
     />
 
@@ -123,10 +105,19 @@ export const AppNavigator = () => {
       name="FaqScreen"
       component={FaqScreen}
        options={{
-    drawerLabel: '',
+    drawerLabel: 'الاسئلة الشائعة',
     header: (props) => <HeaderScreenGoBack navigation={navigation} title={"Faq"} />
       }}
     />
+
+{/* <Drawer.Screen
+      name="SignupScreen"
+      component={SignupScreen}
+      options={{
+    drawerLabel: '',
+    header: (props) => <HeaderScreenGoBack navigation={navigation} title={"Create Account"} />
+      }}
+    /> */}
 
 
     <Drawer.Screen
@@ -159,6 +150,15 @@ export const AppNavigator = () => {
     <Drawer.Screen
       name="SplashScreenThree"
       component={SplashScreenThree}
+       options={{
+    drawerLabel: '',
+    header: (props) => <HeaderScreenGoBack navigation={navigation} title={""} />
+      }}
+    />
+
+    <Drawer.Screen
+      name="EventDetailScreen"
+      component={EventDetailScreen}
        options={{
     drawerLabel: '',
     header: (props) => <HeaderScreenGoBack navigation={navigation} title={""} />

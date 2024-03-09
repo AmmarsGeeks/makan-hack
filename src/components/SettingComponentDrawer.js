@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: FONTFAMILY.secondary,
     fontSize: FONTSIZE.size_16,
-    color: COLORS.White,
+    color: COLORS.BlackColor,
     marginHorizontal: 15
   },
 

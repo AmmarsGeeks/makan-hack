@@ -24,16 +24,9 @@ export const DrawerContentComponent = ({ props }) => {
              }}  
               >
 
- <Image source={require('../../assets/icons/4.png')} style={styles.logo}  />
+ <Image source={require('../../assets/icons/logo.png')} style={styles.logo}  />
 
-      <View className="mt-5" >
-      <TouchableOpacity
-      className="mt-3 text-white py-2 bg-gray-800 hover:bg-gray-900 rounded-lg text-sm px-6  mb-2 w-full"
-        style={styles.button}
-        onPress={() => navigation.navigate('LoginScreen')}>
-        <Text style={styles.buttonText}>  Login </Text>
-      </TouchableOpacity>
-    </View>
+ 
     </View>
 
        <View
@@ -48,7 +41,7 @@ export const DrawerContentComponent = ({ props }) => {
    <CustomDrawerItemList {...props} />
  </View>
 
-       <View
+       {/* <View
    style={{
      marginTop: 15,
      justifyContent: 'flex-start',
@@ -57,19 +50,19 @@ export const DrawerContentComponent = ({ props }) => {
  >
    <SettingComponentDrawer
      icon="comment-question-outline"
-     heading="Faq"
+     heading="الاسئلة الشائعة"
      navigation={navigation}
      toNav={"FaqScreen"}
    />
     <SettingComponentDrawer
      icon="information-outline"
-     heading="Who We Are"
+     heading="من نحن"
      navigation={navigation}
      toNav={"WhoWeAreScreen"}
    />
 
 
- </View>
+ </View> */}
 
 
      </SafeAreaView>
@@ -80,8 +73,8 @@ export const DrawerContentComponent = ({ props }) => {
 const styles = StyleSheet.create({
   logo: {
       resizeMode: 'cover',
-      maxHeight: 60,
-      maxWidth: 150,
+      maxHeight: 90,
+      maxWidth: 70,
     },
     buttonBorder: {
       backgroundColor: 'transparent',

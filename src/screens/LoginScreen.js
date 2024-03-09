@@ -39,7 +39,7 @@ const LoginScreen = ({navigation}) => {
     <ScrollView contentContainerStyle={styles.container} bounces={false}>
       <StatusBar barStyle={'light-content'} />
 
-      <View className="flex  flex-col items-center justify-center mt-8" style={styles.loginContainer} >
+      <View className="flex  flex-col items-center justify-center " style={styles.loginContainer} >
 
       <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -55,7 +55,7 @@ const LoginScreen = ({navigation}) => {
 { /*  SINGLE INPUT */ }
 <View className="mb-8 " >
 <Text style={styles.textInput} className="block text-gray-700 font-bold mb-2" htmlFor="username">
-   Email:  <Text className="text-red-500 text-base" > * </Text>  
+  البريد الاكتروني:  <Text className="text-red-500 text-base" > * </Text>  
 </Text>
 
 <View style={styles.inputBox} >
@@ -79,7 +79,7 @@ const LoginScreen = ({navigation}) => {
 { /*  SINGLE INPUT */ }
 <View className="" >
 <Text style={styles.textInput} className="block text-gray-700 font-bold mb-2" htmlFor="username">
-  Password : <Text className="text-red-500 text-base" > * </Text>  
+  كلمة المرور : <Text className="text-red-500 text-base" > * </Text>  
 </Text>
 
 <View style={styles.inputBox} >
@@ -107,20 +107,20 @@ const LoginScreen = ({navigation}) => {
         </View>
     ) : (
       <TouchableOpacity
-        className="text-white mt-10 rounded-lg text-sm px-6 py-4 mr-2 mb-2 "
+        className="text-white mt-10 rounded-lg text-sm px-6 py-2 mr-2 mb-2 w-9/12"
           style={styles.button}
           onPress={() => handleLogin() }>
-          <Text style={styles.buttonText}>   Login </Text>
+          <Text style={styles.whiteText}>   تسجيل الدخول </Text>
         </TouchableOpacity>
     )}
 
 
-    <TouchableOpacity
-        className="text-white mt-5 text-sm px-6 py-4 "
+    {/* <TouchableOpacity
+        className="text-white mt-5 text-sm px-6 py-2 "
           
           onPress={() => navigation.goBack()  }>
-          <Text style={styles.buttonText}>  Go Back  </Text>
-        </TouchableOpacity>
+          <Text style={styles.buttonText}>  ليس لديك حساب ؟ أنشئ حسابك الأن   </Text>
+        </TouchableOpacity> */}
     </View>
 
 </View>
@@ -140,7 +140,7 @@ const LoginScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     display: 'flex',
-    backgroundColor: COLORS.SecondaryColor,
+    backgroundColor: COLORS.WhiteColor,
     paddingHorizontal: 20,
     height: '100%',
     
@@ -162,10 +162,10 @@ const styles = StyleSheet.create({
     borderRadius: BORDERRADIUS.radius_25,
   },
   buttonText: {
-    fontFamily: FONTFAMILY.tajawal_bold,
+    fontFamily: FONTFAMILY.primary,
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'white',
+    color: COLORS.BlackColor,
     textAlign: 'center',
   },
   inputBox: {
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTFAMILY.secondary,
     fontSize: FONTSIZE.size_14,
     color: COLORS.White,
-    textAlign: 'left',
+    textAlign: 'right',
   },
   textAreaInput: {
     textAlignVertical: 'top',
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
   },
   textInput: {
     fontWeight: 'bold',
-    textAlign: 'left',
+    textAlign: 'right',
     marginBottom: 10,
     fontFamily: FONTFAMILY.secondary,
     fontSize: FONTSIZE.size_14,
@@ -209,7 +209,12 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontFamily: FONTFAMILY.primary_bold,
-    textAlign: 'left'
+    textAlign: 'right'
+  },
+  whiteText: {
+    fontFamily: FONTFAMILY.primary,
+    color: COLORS.WhiteColor,
+    textAlign: 'center',
   },
 
 });
